@@ -168,29 +168,19 @@
 <li><p>先開啟萬惡的 IE，更改 IE proxy 設定，Tools &gt; Internet Options &gt; Connections &gt; LAN settings &gt; proxy server，輸入完畢並選取 proxy server，儲存設定！(方便套用)</p>
 </li>
 <li><p>使用 Administrator 權限開啟 PowerShell（點右鍵選項），先用指令看是否有 proxy 設定</p>
-<blockquote>
-<p>netsh winhttp show proxy</p>
-</blockquote>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">netsh winhttp show proxy</div></pre></td></tr></table></figure>
 </li>
 <li><p>讓 PowerShell 直接導入 IE proxy 設定</p>
-<blockquote>
-<p>netsh winhttp import proxy source=ie</p>
-</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">netsh winhttp import proxy source=ie</div></pre></td></tr></table></figure>
 </li>
 <li><p>設定使用者權限 (username, password)</p>
-<blockquote>
-<p>$webclient=New-Object System.Net.WebClient
-$creds=Get-Credential
-$webclient.Proxy.Credentials=$creds</p>
-</blockquote>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$webclient=New-Object System.Net.WebClient</div><div class="line">$creds=Get-Credential</div><div class="line">$webclient.Proxy.Credentials=$creds</div></pre></td></tr></table></figure>
 <ul>
 <li>這步驟直接三行複製貼上，windows 會跳出視窗讓你輸入帳號密碼。請注意，這個步驟<strong>每次</strong>重開 PowerShell 都需要重新給予使用者權限。</li>
 </ul>
 </li>
 <li><p>如果你的電腦有 PowerShell x64 與 x86 版本，在安裝其他程式之前，你必須先設定 execution policy 才能完成安裝。</p>
-<blockquote>
-<p>Set-ExecutionPolicy RemoteSigned</p>
-</blockquote>
+ <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">Set-ExecutionPolicy RemoteSigned</div></pre></td></tr></table></figure>
 </li>
 <li><p>執行你要安裝程式的 script (ex: 安裝 chocolatey)</p>
 </li>
