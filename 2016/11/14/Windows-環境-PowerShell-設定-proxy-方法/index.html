@@ -20,7 +20,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="I&#39;m Ryan."/>
+        <meta property="og:title" content="Windows 環境 PowerShell 設定 proxy 方法"/>
     
 
     <!--Open Graph Description-->
@@ -33,7 +33,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="website" />
+        <meta property="og:type" content="article" />
     
 
     <!--Page Cover-->
@@ -46,7 +46,7 @@
 
     <!-- Title -->
     
-    <title>Archiv: 2016 - I&#39;m Ryan.</title>
+    <title>Windows 環境 PowerShell 設定 proxy 方法 - I&#39;m Ryan.</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
@@ -129,76 +129,96 @@
 </nav>
 
     <!-- Main Content -->
-    
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
 
-<!-- Page Header -->
-<!-- Set your background image for this header in the theme's configuration: index_cover -->
 <header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="site-heading">
-                    <h1>2016</h1>
+                <div class="post-heading">
+                    <h1>Windows 環境 PowerShell 設定 proxy 方法</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        2016-11-14
+                    </span>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+
+            <!-- Gallery -->
             
-                <div class="post-preview">
-    <a href="/Blog/2016/11/14/Windows-環境-PowerShell-設定-proxy-方法/">
-        <h1 class="post-title archive">
-            Windows 環境 PowerShell 設定 proxy 方法
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2016-11-14
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/Blog/2016/10/10/awosome-fish/">
-        <h1 class="post-title archive">
-            Awosome fish
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2016-10-10
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/Blog/2016/10/04/新的部落格開張囉！/">
-        <h1 class="post-title archive">
-            新的部落格開張囉！
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2016-10-04
-    </p>
-</div>
-            
-            <div class="archive-before-pagination"></div>
-            <ul class="pager">
-    
-    
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>會有這篇文章是因為，由於 Facebook 大約於兩三個禮拜前推出了超級快速的套件管理器 <a href="https://github.com/yarnpkg/yarn">Yarn</a> 而小弟我就想要來試試看，並在公司的電腦安裝 Yarn，因為 npm 的速度實在太鳥了，只好怒裝 Yarn，結果因為公司電腦是使用 Windwos 的作業系統，而又有 proxy 要設定，真的是每次都要突破重重關卡才能完成安裝啊（汗），這篇就是來介紹【在 Windwos 安裝 Yarn，必須透過 PowerShell 安裝 chocolatey 才能安裝 Yarn，因此要讓 PowerShell 可以透過 proxy 可以出去的設定】（這名字也太長了～）。</p>
+<h2 id="步驟"><a href="#步驟" class="headerlink" title="步驟"></a>步驟</h2><ol>
+<li><p>先開啟萬惡的 IE，更改 IE proxy 設定，Tools &gt; Internet Options &gt; Connections &gt; LAN settings &gt; proxy server，輸入完畢並選取 proxy server，儲存設定！(方便套用)</p>
+</li>
+<li><p>使用 Administrator 權限開啟 PowerShell（點右鍵選項），先用指令看是否有 proxy 設定</p>
+<blockquote>
+<p>netsh winhttp show proxy</p>
+</blockquote>
+</li>
+<li><p>讓 PowerShell 直接導入 IE proxy 設定</p>
+<blockquote>
+<p>netsh winhttp import proxy source=ie</p>
+</blockquote>
+</li>
+<li><p>設定使用者權限 (username, password)</p>
+<blockquote>
+<p>$webclient=New-Object System.Net.WebClient
+$creds=Get-Credential
+$webclient.Proxy.Credentials=$creds</p>
+</blockquote>
+<ul>
+<li>這步驟直接三行複製貼上，windows 會跳出視窗讓你輸入帳號密碼。請注意，這個步驟<strong>每次</strong>重開 PowerShell 都需要重新給予使用者權限。</li>
 </ul>
+</li>
+<li><p>如果你的電腦有 PowerShell x64 與 x86 版本，在安裝其他程式之前，你必須先設定 execution policy 才能完成安裝。</p>
+<blockquote>
+<p>Set-ExecutionPolicy RemoteSigned</p>
+</blockquote>
+</li>
+<li><p>執行你要安裝程式的 script (ex: 安裝 chocolatey)</p>
+</li>
+</ol>
+<h2 id="實測與後記"><a href="#實測與後記" class="headerlink" title="實測與後記"></a>實測與後記</h2><p>這邊設定完成應該就可以暢行無阻的安裝 Yarn 了，安裝好 chocolatey 後並不需要再對 chocolatey 再次設定 proxy（至少我自己是這樣），就可以順利完成安裝 Yarn 的步驟，官方都寫得很清楚直接參考官方的即可。</p>
+<p>由於 Yarn 與 npm 都是吃 package.json 檔案，所以基本上他們是可以無痛轉換的，當你 git clone 一個 repository 下來，可以直接選擇要使用 Yarn 或是 npm 來安裝套件，我自己實測 npm 原本要 3~5 分鐘的安裝時間，Yarn 大概在 30 秒就可以完成安裝了，這速度真的是海放 npm，當然原本可以在 npm install 偷懶的時間也隨著 Yarn 的出現而煙消雲散了（？）</p>
+<h2 id="參考資料"><a href="#參考資料" class="headerlink" title="參考資料"></a>參考資料</h2><ul>
+<li><p><a href="http://www.get-virtual.info/2015/06/30/powershell-behind-a-proxy-server/" target="_blank" rel="external">powershell-behind-a-proxy-server</a></p>
+</li>
+<li><p><a href="http://stackoverflow.com/questions/4037939/powershell-says-execution-of-scripts-is-disabled-on-this-system" target="_blank" rel="external">PowerShell says “execution of scripts is disabled on this system.”</a></p>
+</li>
+</ul>
+
+
+                
+            </div>
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
+            
         </div>
     </div>
-</div>
-
-
+</article>
 
     <!-- Footer -->
     <hr />
