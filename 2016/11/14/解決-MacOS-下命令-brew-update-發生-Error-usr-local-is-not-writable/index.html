@@ -20,7 +20,7 @@
 
     <!--Open Graph Title-->
     
-        <meta property="og:title" content="I&#39;m Ryan."/>
+        <meta property="og:title" content="解決-MacOS 下命令 &#39;brew update&#39; 發生 Error: /usr/local is not writable."/>
     
 
     <!--Open Graph Description-->
@@ -33,7 +33,7 @@
 
     <!--Type page-->
     
-        <meta property="og:type" content="website" />
+        <meta property="og:type" content="article" />
     
 
     <!--Page Cover-->
@@ -46,7 +46,7 @@
 
     <!-- Title -->
     
-    <title>Archiv - I&#39;m Ryan.</title>
+    <title>解決-MacOS 下命令 &#39;brew update&#39; 發生 Error: /usr/local is not writable. - I&#39;m Ryan.</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
@@ -129,89 +129,91 @@
 </nav>
 
     <!-- Main Content -->
-    
+    <!-- Page Header -->
+<!-- Set your background image for this header in your post front-matter: cover -->
 
-<!-- Page Header -->
-<!-- Set your background image for this header in the theme's configuration: index_cover -->
 <header class="intro-header" style="background-image: url('http://www.codeblocq.com/assets/projects/hexo-theme-clean-blog/img/home-bg.jpg')">
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                <div class="site-heading">
-                    <h1>Archiv</h1>
+                <div class="post-heading">
+                    <h1>解決-MacOS 下命令 'brew update' 發生 Error: /usr/local is not writable.</h1>
+                    
+                    <span class="meta">
+                        <!-- Date and Author -->
+                        
+                        2016-11-14
+                    </span>
                 </div>
             </div>
         </div>
     </div>
 </header>
 
-<!-- Main Content -->
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<!-- Post Content -->
+<article>
+    <div class="container">
+        <div class="row">
+
+            <!-- Tags and categories -->
+           
+
+            <!-- Gallery -->
             
-                <div class="post-preview">
-    <a href="/Blog/2016/11/14/解決-MacOS-下命令-brew-update-發生-Error-usr-local-is-not-writable/">
-        <h1 class="post-title archive">
-            解決-MacOS 下命令 'brew update' 發生 Error: /usr/local is not writable.
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2016-11-14
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/Blog/2016/11/14/Windows-環境-PowerShell-設定-proxy-方法/">
-        <h1 class="post-title archive">
-            Windows 環境 PowerShell 設定 proxy 方法
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2016-11-14
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/Blog/2016/10/10/awosome-fish/">
-        <h1 class="post-title archive">
-            Awosome fish
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2016-10-10
-    </p>
-</div>
-            
-                <div class="post-preview">
-    <a href="/Blog/2016/10/04/新的部落格開張囉！/">
-        <h1 class="post-title archive">
-            新的部落格開張囉！
-        </h1>
-    </a>
-    <p class="post-meta archive">
-        <!-- Date and Author -->
-        
-        2016-10-04
-    </p>
-</div>
-            
-            <div class="archive-before-pagination"></div>
-            <ul class="pager">
-    
-    
+
+            <!-- Post Main Content -->
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <h2 id="起源"><a href="#起源" class="headerlink" title="起源"></a>起源</h2><p>會有這篇是因為我想要在 MacOS 上面安裝 Yarn 套件管理器，而 Yarn 需要比較新版的 brew 才有辦法安裝，所以我們需要先 update 我們的 brew，才能夠完成安裝。而這是我在 update brew 的時候遇到的問題，解法如下：</p>
+<h2 id="我的-MacOS-環境"><a href="#我的-MacOS-環境" class="headerlink" title="我的 MacOS 環境"></a>我的 MacOS 環境</h2><ul>
+<li>MacOS: 10.12.1</li>
+<li>Terminal: iTerm2</li>
+<li>Bash-Shell: Fish-Shell</li>
 </ul>
+<h2 id="步驟"><a href="#步驟" class="headerlink" title="步驟"></a>步驟</h2><p>以我的 iTerm2 為例，下 &#39;brew update&#39; 出現 Error 的時顯示以下訊息：</p>
+<blockquote>
+<p>$ brew update
+Error: /usr/local is not writable. You should change the ownership
+and permissions of /usr/local back to your user account:
+  sudo chown -R $(whoami) /usr/local</p>
+</blockquote>
+<p>那麼解決方法就是直接跟著上面的說明，使用指令</p>
+<blockquote>
+<p>$ sudo chown -R $(whoami) /usr/local</p>
+</blockquote>
+<p>＊注意：如果你的 bash shell 是用 fish 的話，還會出現一個問題</p>
+<blockquote>
+<p>$ sudo chown -R $(whoami):admin /usr/local/
+$(...) is not supported. In fish, please use &#39;(whoami)&#39;.
+fish: sudo chown -R $(whoami):admin /usr/local</p>
+</blockquote>
+<p>意思就是 fish 不支援 $ 符號，故只要把 $ 拿掉即可。</p>
+<blockquote>
+<p>$ sudo chown -R (whoami) /usr/local/</p>
+</blockquote>
+<p>然後要求輸入密碼，輸入後就完成了解決步驟！</p>
+<p>接下來只要重新下 brew update 即可</p>
+<blockquote>
+<p>$ brew update</p>
+</blockquote>
+<p>即可完成更新。</p>
+<p>接下來就可以安裝你想安裝的新套件囉！（ex: Yarn）</p>
+<h2 id="後記"><a href="#後記" class="headerlink" title="後記"></a>後記</h2><p>不得不說以安裝 Yarn 來說 MacOS 真的比 Windwos 安裝來得簡單得多，不用繞來繞去只要 brew 安裝即可，真的是省時又省事啊～</p>
+
+
+                
+            </div>
+
+            <!-- Comments -->
+            
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    
+
+
+                </div>
+            
         </div>
     </div>
-</div>
-
-
+</article>
 
     <!-- Footer -->
     <hr />
